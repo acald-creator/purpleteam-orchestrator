@@ -1,10 +1,10 @@
 FROM node:17-alpine
 
-ARG LOCAL_USER_ID=9001
-ARG LOCAL_GROUP_ID=101
+ARG LOCAL_USER_ID=1000 
+ARG LOCAL_GROUP_ID=1000
 
-ENV USER orchestrator
-ENV GROUP purpleteam
+ENV USER=orchestrator GROUP=purpleteam
+
 RUN echo user is: ${USER}, LOCAL_USER_ID is: ${LOCAL_USER_ID}, group is: ${GROUP}, LOCAL_GROUP_ID is: ${LOCAL_GROUP_ID}
 
 RUN apk add --no-cache zip
