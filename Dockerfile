@@ -9,8 +9,8 @@
 
 FROM node:16-alpine
 
-ARG LOCAL_USER_ID
-ARG LOCAL_GROUP_ID
+ARG LOCAL_USER_ID=9001
+ARG LOCAL_GROUP_ID=101
 
 # Create an environment variable in our image for the non-root user we want to use.
 # ENV USER 1000
