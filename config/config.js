@@ -7,10 +7,11 @@
 // the Business Source License, use of this software will be governed
 // by the Apache License, Version 2.0
 
-const convict = require('convict');
-const { duration } = require('convict-format-with-moment');
-const { url } = require('convict-format-with-validator');
-const path = require('path');
+import convict from 'convict';
+import { duration } from 'convict-format-with-moment';
+import { url } from 'convict-format-with-validator';
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
 
 convict.addFormat(duration);
 convict.addFormat(url);
@@ -158,8 +159,8 @@ const schema = {
   job: {
     version: {
       doc: 'The version of the Job accepted by this API.',
-      format: ['0.1.0-alpha.1', '1.0.0-alpha.3', '2.0.0-alpha.3', '3.0.0-alpha.3', '3.1.0-alpha.3'],
-      default: '3.1.0-alpha.3'
+      format: ['0.1.0-alpha.1', '1.0.0-alpha.3', '2.0.0-alpha.3', '3.0.0-alpha.3', '3.1.0-alpha.3', '4.0.0-alpha.3'],
+      default: '4.0.0-alpha.3'
     }
   },
   outcomes: {
@@ -203,7 +204,9 @@ const schema = {
 };
 
 const config = convict(schema);
-config.loadFile(path.join(__dirname, `config.${process.env.NODE_ENV}.json`));
+const filename = fileURLToPath(import.meta.url);
+const currentDirName = dirname(filename);
+config.loadFile(path.join(currentDirName, `config.${process.env.NODE_ENV}.json`));
 config.validate();
 
-module.exports = config;
+export default config;

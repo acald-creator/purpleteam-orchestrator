@@ -7,7 +7,7 @@
 // the Business Source License, use of this software will be governed
 // by the Apache License, Version 2.0
 
-const Bourne = require('@hapi/bourne');
+import Bourne from '@hapi/bourne';
 
 const Orchestration = {
   TesterUnavailable: (tester) => `No ${tester} testing available currently. The ${tester} Tester is currently in-active.`, // Should match CLI.
@@ -22,7 +22,7 @@ const Orchestration = {
         return 'JSON parsing failed. Job was invalid JSON.';
       }
     } else {
-      configClone = config;
+      configClone = structuredClone(config); // Requires Node 17. If this fails, the schema will need tweaking.
     }
 
     try {
@@ -35,4 +35,6 @@ const Orchestration = {
 
 };
 
-module.exports = { Orchestration };
+export default { Orchestration };
+export { Orchestration };
+
